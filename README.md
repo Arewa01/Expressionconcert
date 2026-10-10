@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Expression Concert website
 
-## Getting Started
-
-First, run the development server:
+Next.js 15 (App Router) + Tailwind CSS v4. Built from the Figma homepage design.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                  layout (header, footer, fonts) and pages
+├── components/
+│   ├── layout/           Header, Footer, Logo, Container, NewsletterForm
+│   ├── sections/         Hero, ValuesStrip, ProgrammeGrid, ProgrammeCard,
+│   │                     ImpactStats, Testimonial, ChoirFeature,
+│   │                     ServiceCards, DonateCTA
+│   └── ui/               Button, Eyebrow, Accent, Icon, ImageSlot, CarouselButton
+└── content/              all copy and data (home.ts, site.ts, types.ts)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Rules that keep the Builder.io migration easy:
 
-## Learn More
+- Sections never import content. They receive it as props. `app/page.tsx` is the only place content meets components.
+- All copy lives in `src/content/`. Builder (or any CMS) replaces those files later.
+- Every image goes through `ImageSlot`. Pass a `src` and the photo appears; leave it out and a placeholder renders. Put photos in `public/images/` and set the `image` fields in `content/home.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+## Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Home, About, What We Do, Programmes, Events, Gallery, Community Choir, School of Music,
+Get Involved, Contact, Donate (plus Donate thank-you and a custom 404).
+Copy, contact details and photos come from the old WordPress site at expressionconcert.com.
+Old WordPress URLs such as `/about-us` and `/contact-us` redirect in `next.config.ts`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All events live in `src/content/events.ts`. The Events page, each event's detail page
+(`/events/[slug]`), the homepage slider and the Programmes page all read from it.
+Events split into upcoming and past automatically, and those pages regenerate hourly.
+Weekly events (`weeklyUntil`) produce one session per week. The countdown always targets the next one.
+Each event also has an "Add to Calendar" file at `/events/[slug]/calendar.ics`.
 
-## Deploy on Vercel
+## Forms and donations
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Copy `.env.example` to `.env.local` and fill it in.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Forms (contact, choir, school registration, newsletter) are sent by email through Resend
+  (`src/lib/forms.ts`). Without keys they only log to the terminal in development, and show
+  an error with the contact email in production.
+- Donations use Stripe Checkout (`src/lib/donate.ts`). Without `STRIPE_SECRET_KEY` the donate
+  form says online giving isn't connected yet.
+
+## Still to do
+
+- Social media links in `content/site.ts` (the old site lists none)
+- Privacy Policy, Terms and Accessibility pages (linked in the footer, not written yet)
+- Confirm the homepage programme dates and venues from the Figma design (see `content/home.ts`)
+- The gallery holds a selection of 12 photos per album. The full albums are in Google Drive.

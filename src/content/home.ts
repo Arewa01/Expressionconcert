@@ -1,5 +1,4 @@
 import type {
-  Programme,
   ServiceItem,
   Stat,
   TestimonialItem,
@@ -17,9 +16,14 @@ export const hero = {
   primaryCta: { label: "Donate Today", href: "/donate" },
   secondaryCta: { label: "Explore Our Work", href: "/what-we-do" },
   proof: { title: "Real people. Real stories.", subtitle: "A stronger, more connected community." },
-  proofAvatars: [] as string[],
+  proofAvatars: [
+    "/images/site/audience-foundation.jpg",
+    "/images/gallery/christmas-concert/04.jpg",
+    "/images/gallery/drum-festival/10.jpg",
+    "/images/gallery/healing-through-harmony-2-0/08.jpg",
+  ],
   script: ["Different Cultures", "One Community"],
-  image: undefined as string | undefined,
+  image: "/images/site/saxophonist.jpg" as string | undefined,
 };
 
 export const values: ValueItem[] = [
@@ -34,73 +38,8 @@ export const programmesSection = {
   title: "Join Our",
   titleAccent: "Upcoming Programmes.",
   description: "Workshops, community sessions, concerts and more. There's something for everyone.",
-  cta: { label: "View All Programmes", href: "/programmes" },
+  cta: { label: "View All Events", href: "/events" },
 };
-
-export const programmes: Programme[] = [
-  {
-    id: "hth-stockport",
-    organiser: "Expression Concert",
-    title: "Healing Through Harmony (Stockport)",
-    artwork: {
-      variant: "harmony",
-      scriptLine: "Healing Through",
-      headline: "Harmony",
-      subline: "A 52 week music programme for people aged 55+",
-      tint: "amber",
-    },
-    date: "10 Nov 2026",
-    time: "2:00 PM – 4:00 PM",
-    location: "The Hub, Stockport",
-    cta: { label: "Register Now", href: "/programmes/hth-stockport" },
-  },
-  {
-    id: "drum-festival",
-    organiser: "Greater Manchester",
-    title: "Greater Manchester Drum Festival",
-    artwork: {
-      variant: "festival",
-      headline: "Drum Festival",
-      subline: "A vibrant celebration of African and global drumming, performances and culture.",
-    },
-    date: "4 Apr 2026",
-    time: "2:00 PM",
-    location: "Stockport",
-    cta: { label: "Find Out More", href: "/events/drum-festival" },
-  },
-  {
-    id: "hth-davenport",
-    organiser: "Expression Concert",
-    title: "Healing Through Harmony (Davenport & Cale Green)",
-    artwork: {
-      variant: "harmony",
-      scriptLine: "Healing Through",
-      headline: "Harmony",
-      badge: "Davenport & Cale Green",
-      tint: "blush",
-    },
-    date: "7 Apr 2026",
-    time: "11:00 AM – 1:00 PM",
-    location: "Davenport Community Centre",
-    cta: { label: "Register Now", href: "/programmes/hth-davenport" },
-  },
-  {
-    id: "hth-brinington",
-    organiser: "Expression Concert",
-    title: "Healing Through Harmony (Brinington)",
-    artwork: {
-      variant: "harmony",
-      scriptLine: "Healing Through",
-      headline: "Harmony",
-      subline: "Brinington",
-      tint: "rose",
-    },
-    date: "7 Apr 2026",
-    time: "11:00 AM – 1:00 PM",
-    location: "Brinington Community Centre",
-    cta: { label: "Register Now", href: "/programmes/hth-brinington" },
-  },
-];
 
 export const impact = {
   eyebrow: "Our Impact",
@@ -108,7 +47,7 @@ export const impact = {
   titleLine2: "Changes Lives.",
   description:
     "From improving mental wellbeing to creating opportunities for young people, our programmes are making a real difference across Greater Manchester.",
-  cta: { label: "See Our Impact", href: "/impact" },
+  cta: { label: "See Our Impact", href: "/about" },
 };
 
 export const stats: Stat[] = [
@@ -124,6 +63,7 @@ export const testimonials: TestimonialItem[] = [
       "An incredible evening celebrating culture, community and the power of music to bring people together.",
     name: "Andrew Gwynne",
     role: "Former MP, Gorton",
+    image: "/images/site/mp-clapping.jpg",
   },
 ];
 
@@ -134,7 +74,7 @@ export const choir = {
   description:
     "Our community choir brings people from different backgrounds together through music, building confidence, friendships and a stronger sense of community.",
   cta: { label: "Join the Choir", href: "/community-choir" },
-  image: undefined as string | undefined,
+  image: "/images/gallery/expression-2-0/07.jpg" as string | undefined,
 };
 
 export const services: ServiceItem[] = [
@@ -142,16 +82,19 @@ export const services: ServiceItem[] = [
     title: "School of Music",
     description: "Accessible music education for children, young people and underserved groups.",
     href: "/school-of-music",
+    image: "/images/gallery/drum-festival/12.jpg",
   },
   {
     title: "Artist Development",
     description: "Mentoring, training and performance opportunities for emerging musicians.",
-    href: "/artist-development",
+    href: "/what-we-do#artist-development",
+    image: "/images/site/singers.jpg",
   },
   {
     title: "Cultural Events",
     description: "Concerts, showcases and multicultural experiences that bring people together.",
     href: "/events",
+    image: "/images/gallery/expression-2-0/10.jpg",
   },
 ];
 
@@ -161,5 +104,5 @@ export const donateCta = {
   description:
     "Your donation helps us deliver music therapy, community programmes, workshops and opportunities for the next generation.",
   cta: { label: "Donate Now", href: "/donate" },
-  image: undefined as string | undefined,
+  image: "/images/site/crowd.jpg" as string | undefined,
 };
