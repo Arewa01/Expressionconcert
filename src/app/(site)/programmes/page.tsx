@@ -10,17 +10,18 @@ import { ServiceCards } from "@/components/sections/ServiceCards";
 import { Split } from "@/components/sections/Split";
 import { donateCta } from "@/content/home";
 import { programmesPage } from "@/content/programmesPage";
-import { upcomingEvents } from "@/lib/events";
+import { activeEvents } from "@/lib/events";
+import { getEvents } from "@/lib/getEvents";
 
 export const metadata: Metadata = {
   title: "Programmes",
   description: programmesPage.hero.description,
 };
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
-export default function ProgrammesPage() {
-  const upcoming = upcomingEvents().filter((o) => o.event.category === "Programme" || o.event.category === "Taster Session");
+export default async function ProgrammesPage() {
+  const upcoming = activeEvents(await getEvents()).filter((o) => o.event.category === "Programme" || o.event.category === "Taster Session");
   const { flagship } = programmesPage;
 
   return (

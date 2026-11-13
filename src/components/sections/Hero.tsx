@@ -52,7 +52,7 @@ export function Hero({
       <Container className="relative grid min-h-[620px] items-center py-24 lg:grid-cols-[1fr_auto]">
         <div className="max-w-4xl">
           <Reveal y={12}>
-            <Eyebrow tone="white">{eyebrow}</Eyebrow>
+            <Eyebrow tone="gold">{eyebrow}</Eyebrow>
           </Reveal>
           <h1 className="mt-8 text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl xl:text-[4.25rem]">
             <MaskLine onMount delay={0.15}>
@@ -95,7 +95,7 @@ export function Hero({
         </div>
 
         {script && (
-          <p className="mt-16 hidden -rotate-3 text-right font-script text-4xl leading-tight text-white/90 lg:block xl:text-5xl">
+          <p className="mt-16 hidden -rotate-3 text-right font-script text-4xl leading-tight text-gold-light lg:block xl:text-5xl">
             {script.map((line, i) => (
               <Handwrite key={i} delay={0.9 + i * 1.1}>
                 {line}

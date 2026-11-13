@@ -23,7 +23,7 @@ export function DonateCTA({ eyebrow, title, description, cta, image }: DonateCTA
         aria-hidden
         className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,11,11,0.88)_0%,rgba(110,18,24,0.78)_28%,rgba(200,30,40,0.93)_55%,rgba(160,24,30,0.97)_100%)]"
       />
-      <Heart aria-hidden strokeWidth={1.5} className="animate-heartbeat absolute right-10 bottom-10 size-24 text-white/20" />
+      <Heart aria-hidden strokeWidth={1.5} className="animate-heartbeat absolute right-10 bottom-10 size-24 text-gold-light/50" />
 
       <Container className="relative flex min-h-[520px] items-center justify-end py-24">
         <div className="max-w-2xl">

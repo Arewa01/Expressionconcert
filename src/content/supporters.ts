@@ -1,4 +1,10 @@
-import type { Supporter } from "@/components/sections/SupportersStrip";
+import type { FeaturedSupporter, Supporter } from "@/components/sections/SupportersStrip";
+
+/** Shown on their own, larger, above the other supporters */
+export const featuredSupporters: FeaturedSupporter[] = [
+  { label: "Funded by", name: "UK Government", logo: "/images/supporters/uk-government.png" },
+  { label: "Supported by", name: "Manchester City Council", logo: "/images/supporters/manchester-city-council.jpg" },
+];
 
 export const supporters: Supporter[] = [
   { name: "Stockport Metropolitan Borough Council", logo: "/images/supporters/stockport-council.jpg" },

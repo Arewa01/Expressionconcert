@@ -13,6 +13,20 @@ const tints = {
 function Artwork({ event }: { event: EventItem }) {
   const a = event.artwork;
 
+  // The real flyer comes first: shown whole, never cropped
+  if (event.poster) {
+    return (
+      <ImageSlot
+        src={event.poster}
+        contain
+        alt={`${event.title} flyer`}
+        sizes="(min-width: 1024px) 25vw, 85vw"
+        className="h-full bg-ink"
+        imageClassName="transition-transform duration-700 group-hover:scale-105"
+      />
+    );
+  }
+
   if (!a) {
     return (
       <div className="relative h-full">

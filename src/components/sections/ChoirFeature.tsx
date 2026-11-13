@@ -33,7 +33,7 @@ export function ChoirFeature({ eyebrow, title, titleAccent, description, cta, im
       <Container className="relative flex min-h-[560px] items-center justify-end py-24">
         <div className="max-w-lg">
           <Reveal y={12}>
-            <Eyebrow>{eyebrow}</Eyebrow>
+            <Eyebrow tone="gold">{eyebrow}</Eyebrow>
           </Reveal>
           <h2 className="mt-8 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
             <MaskLine delay={0.1}>{title}</MaskLine>

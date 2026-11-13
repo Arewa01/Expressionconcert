@@ -45,7 +45,7 @@ export function PageHero({ eyebrow, title, titleAccent, description, image, cta,
           </nav>
         </Reveal>
         <Reveal y={12} delay={0.05}>
-          <Eyebrow className="mt-10">{eyebrow}</Eyebrow>
+          <Eyebrow tone="gold" className="mt-10">{eyebrow}</Eyebrow>
         </Reveal>
         <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
           <MaskLine onMount delay={0.1}>

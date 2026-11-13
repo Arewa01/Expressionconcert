@@ -8,7 +8,7 @@ export function Highlighter({ children, delay = 0.5 }: { children: React.ReactNo
     <span className="relative inline-block">
       <motion.span
         aria-hidden
-        className="absolute inset-x-0 bottom-1 h-3 origin-left -rotate-1 rounded-full bg-[#fde58a]"
+        className="absolute inset-x-0 bottom-1 h-3 origin-left -rotate-1 rounded-full bg-gold-light/55"
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}

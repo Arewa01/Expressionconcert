@@ -47,7 +47,7 @@ export function ImpactStats({ eyebrow, titleLine1, titleLine2, description, cta,
           <Stagger as="dl" stagger={0.1} className="grid grid-cols-2 gap-8 border-b border-neutral-200 pb-10 md:grid-cols-4">
             {stats.map((s) => (
               <StaggerItem key={s.label} className="flex flex-col">
-                <Icon name={s.icon} className="size-6 text-neutral-400" />
+                <Icon name={s.icon} className="size-6 text-gold" />
                 <dt className="order-3 mt-2 text-sm leading-snug text-neutral-500">{s.label}</dt>
                 <dd className="order-2 mt-3 text-4xl font-extrabold tracking-tight text-ink">
                   <CountUp value={s.value} plus={s.plus} />

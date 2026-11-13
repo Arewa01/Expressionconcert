@@ -29,6 +29,7 @@ function LinkColumn({ title, links, highlightFirst }: { title: string; links: { 
 export function Footer() {
   return (
     <footer className="bg-cream">
+      <div aria-hidden className="h-1 bg-gradient-to-r from-gold-deep via-gold-light to-gold-deep" />
       <Container className="pt-16 pb-10">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.6fr_0.8fr_0.8fr_1.5fr]">
           <div>

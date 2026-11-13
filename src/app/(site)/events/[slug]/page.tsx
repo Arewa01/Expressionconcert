@@ -12,27 +12,30 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { events } from "@/content/events";
 import {
   formatDate,
   formatTimeRange,
-  getEvent,
+  findEvent,
   lastOccurrence,
   nextOccurrence,
   occurrencesOf,
   pastEvents,
   recurrenceLabel,
+  ongoingEvents,
   upcomingEvents,
 } from "@/lib/events";
+import { getEvents } from "@/lib/getEvents";
 
-export const revalidate = 3600;
+export const revalidate = 60;
+// Events added in the Studio after a deploy are rendered on first visit
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return events.map((e) => ({ slug: e.slug }));
+export async function generateStaticParams() {
+  return (await getEvents()).map((e) => ({ slug: e.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const event = getEvent((await params).slug);
+  const event = findEvent(await getEvents(), (await params).slug);
   if (!event) return {};
   return {
     title: `${event.title}: ${event.subtitle}`,
@@ -42,7 +45,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function EventPage({ params }: { params: Promise<{ slug: string }> }) {
-  const event = getEvent((await params).slug);
+  const events = await getEvents();
+  const event = findEvent(events, (await params).slug);
   if (!event) notFound();
 
   const now = new Date();
@@ -57,7 +61,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
     .map((o) => formatDate.long(o.date));
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(`${event.venue}, ${event.address}`)}&t=m&z=15&output=embed`;
 
-  const more = [...upcomingEvents(now), ...pastEvents(now)].filter((o) => o.event.slug !== event.slug).slice(0, 3);
+  const more = [...upcomingEvents(events, now), ...ongoingEvents(events, now), ...pastEvents(events, now)].filter((o) => o.event.slug !== event.slug).slice(0, 3);
 
   const facts = [
     { icon: CalendarDays, label: repeat ? "Next session" : "Date", value: formatDate.long(shown.date) },
@@ -122,7 +126,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
               <p className="text-lg text-white/70">This event has finished. Thank you to everyone who came.</p>
             ) : (
               <div>
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-gold-light">
                   {repeat ? "Next session starts in" : "Starts in"}
                 </p>
                 <Countdown startsAt={shown.startsAt} endsAt={shown.endsAt} />

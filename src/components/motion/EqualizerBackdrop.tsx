@@ -12,7 +12,7 @@ export function EqualizerBackdrop({ count = 72, className = "" }: { count?: numb
         return (
           <span
             key={i}
-            className="animate-eq flex-1 rounded-t-full bg-gradient-to-t from-brand/40 to-brand/0"
+            className="animate-eq flex-1 rounded-t-full bg-gradient-to-t from-gold/50 via-brand/25 to-brand/0"
             style={
               {
                 height: `${height}%`,

@@ -13,7 +13,7 @@ import { ImageSlot } from "@/components/ui/ImageSlot";
 import { about } from "@/content/about";
 import { values } from "@/content/home";
 import { services } from "@/content/services";
-import { supporters } from "@/content/supporters";
+import { featuredSupporters, supporters } from "@/content/supporters";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -69,7 +69,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <SupportersStrip supporters={supporters} />
+      <SupportersStrip featured={featuredSupporters} supporters={supporters} />
       <DonateCTA {...about.cta} />
     </>
   );

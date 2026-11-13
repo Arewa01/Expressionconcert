@@ -31,7 +31,7 @@ function Unit({ value, label, tone }: { value: number; label: string; tone: "dar
           </motion.span>
         </AnimatePresence>
       </span>
-      <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] opacity-70">{label}</span>
+      <span className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${tone === "dark" ? "text-gold-light" : "opacity-70"}`}>{label}</span>
     </div>
   );
 }

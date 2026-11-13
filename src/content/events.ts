@@ -46,6 +46,58 @@ export type EventItem = {
 
 export const events: EventItem[] = [
   {
+    slug: "stockport-multicultural-christmas-concert",
+    category: "Concert",
+    title: "Stockport Multicultural Christmas Concert",
+    subtitle: "A festive afternoon of music, culture & community",
+    start: "2026-12-19",
+    startTime: "14:00",
+    endTime: "16:00",
+    venue: "Stockroom",
+    address: "Merseyway Shopping Centre, Stockport SK1 1PW",
+    summary: "A festive afternoon of music, culture and community celebrating Stockport's diversity.",
+    description: [
+      "Come celebrate the magic of Christmas with music, culture and community at this special festive afternoon at the Stockroom in Merseyway Shopping Centre.",
+      "Live performances bring cultural traditions together with Christmas, as local talent and audiences share songs, stories and festive cheer.",
+    ],
+    credits:
+      "Funded by Stockport Metropolitan Borough Council, the UK Government and Greater Manchester. Part of Ambitious Stockport.",
+    enquiries: "0161 531 4228 | 07769 493682",
+    externalRegistration: {
+      label: "Get tickets on Eventbrite",
+      href: "https://www.eventbrite.co.uk/e/stockport-multicultural-christmas-concert-tickets-1994150241052",
+    },
+    image: "/images/gallery/christmas-concert/05.jpg",
+    poster: "/images/posters/multicultural-christmas-concert.jpg",
+    album: "christmas-concert",
+  },
+  {
+    slug: "from-participation-to-performance",
+    category: "Programme",
+    title: "From Participation to Performance",
+    subtitle: "24 week drum circle, Fridays at Stockroom",
+    start: "2026-09-04",
+    startTime: "17:30",
+    endTime: "18:30",
+    // 24 weekly sessions from Friday 4 September 2026
+    weeklyUntil: "2027-02-12",
+    venue: "Stockroom",
+    address: "Merseyway Shopping Centre, Stockport SK1 1PW",
+    summary: "A 24 week community drum circle. Free drop-in sessions every Friday.",
+    description: [
+      "From Participation to Performance is a 24 week drum circle running every Friday from 5:30pm to 6:30pm at the Stockroom in Merseyway Shopping Centre.",
+      "Sessions are free drop-ins. Come along, pick up a drum and play.",
+    ],
+    highlights: ["24 week drum circle", "Free drop-in sessions", "Every Friday, 5:30pm"],
+    price: "Free drop-in",
+    credits:
+      "Funded by Stockport Metropolitan Borough Council, the UK Government and Greater Manchester. Part of Ambitious Stockport.",
+    enquiries: "0161 531 4228 | 07769 493682",
+    image: "/images/gallery/drum-festival/04.jpg",
+    poster: "/images/posters/participation-to-performance.jpg",
+    album: "drum-festival",
+  },
+  {
     slug: "healing-through-harmony-the-hub",
     category: "Programme",
     title: "Healing Through Harmony",
@@ -215,6 +267,11 @@ export const eventsPage = {
     title: "Upcoming",
     titleAccent: "events.",
     description: "Keep coming back to stay informed about our events, and register early to save your place.",
+  },
+  ongoing: {
+    title: "Ongoing",
+    titleAccent: "programmes.",
+    description: "Weekly sessions already under way. Find your next session below.",
   },
   calendar: {
     title: "Event",

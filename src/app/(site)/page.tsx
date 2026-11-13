@@ -17,18 +17,21 @@ import {
   testimonials,
   values,
 } from "@/content/home";
-import { supporters } from "@/content/supporters";
-import { pastEvents, upcomingEvents } from "@/lib/events";
+import { featuredSupporters, supporters } from "@/content/supporters";
+import { ongoingEvents, pastEvents, upcomingEvents } from "@/lib/events";
+import { getEvents } from "@/lib/getEvents";
 
 // Re-check which events are upcoming every hour
-export const revalidate = 3600;
+export const revalidate = 60;
 
-export default function Home() {
+export default async function Home() {
+  const events = await getEvents();
   const now = new Date();
-  // Upcoming events first, topped up with the most recent past ones so the slider is never empty
+  // Upcoming events first, then ongoing programmes, topped up with recent past ones so the slider is never empty
   const items = [
-    ...upcomingEvents(now).map((occurrence) => ({ occurrence, past: false })),
-    ...pastEvents(now).map((occurrence) => ({ occurrence, past: true })),
+    ...upcomingEvents(events, now).map((occurrence) => ({ occurrence, past: false })),
+    ...ongoingEvents(events, now).map((occurrence) => ({ occurrence, past: false })),
+    ...pastEvents(events, now).map((occurrence) => ({ occurrence, past: true })),
   ].slice(0, 4);
 
   return (
@@ -39,7 +42,7 @@ export default function Home() {
       <ImpactStats {...impact} stats={stats} testimonials={testimonials} />
       <ChoirFeature {...choir} />
       <ServiceCards items={services} />
-      <SupportersStrip supporters={supporters} />
+      <SupportersStrip featured={featuredSupporters} supporters={supporters} />
       <DonateCTA {...donateCta} />
     </>
   );

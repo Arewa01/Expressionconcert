@@ -7,7 +7,11 @@ const nextConfig: NextConfig = {
 
   // Gallery photos served from Google Drive (see src/lib/drive.ts)
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "lh3.googleusercontent.com", pathname: "/d/**" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "lh3.googleusercontent.com", pathname: "/d/**" },
+      // Event photos uploaded in the Sanity Studio
+      { protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" },
+    ],
   },
 
   // Keep links to the old WordPress site working

@@ -45,7 +45,7 @@ export function EventHero({ eyebrow, items }: { eyebrow: string; items: Occurren
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: easeOut }}
-          className="text-center text-xs font-semibold uppercase tracking-[0.3em] text-white/80"
+          className="text-center text-xs font-semibold uppercase tracking-[0.3em] text-gold-light"
         >
           &bull; {eyebrow} &bull;
         </motion.p>
@@ -87,10 +87,11 @@ export function EventHero({ eyebrow, items }: { eyebrow: string; items: Occurren
               className="grid overflow-hidden rounded-3xl bg-white text-ink shadow-[0_40px_80px_-30px_rgba(0,0,0,0.8)] md:grid-cols-[minmax(0,1fr)_minmax(0,360px)]"
             >
               <TicketImage
-                src={event.image}
-                alt={event.title}
+                src={event.poster ?? event.image}
+                contain={!!event.poster}
+                alt={event.poster ? `${event.title} flyer` : event.title}
                 sizes="(min-width: 768px) 360px, 100vw"
-                className="m-3 aspect-[16/10] md:order-2 md:ml-0 md:aspect-auto md:min-h-[300px]"
+                className={`m-3 md:order-2 md:ml-0 md:aspect-auto ${event.poster ? "aspect-[4/5] md:min-h-[420px]" : "aspect-[16/10] md:min-h-[300px]"}`}
               />
               <div className="flex flex-col p-7 sm:p-9">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand">{event.category}</p>
@@ -136,7 +137,7 @@ export function EventHero({ eyebrow, items }: { eyebrow: string; items: Occurren
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">Starts in</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-light">Starts in</p>
           <Countdown key={current.startsAt} startsAt={current.startsAt} endsAt={current.endsAt} />
           {items.length > 1 && (
             <div className="mt-4 flex items-center gap-4 lg:hidden">

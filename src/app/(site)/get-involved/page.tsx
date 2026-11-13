@@ -9,7 +9,7 @@ import { SupportersStrip } from "@/components/sections/SupportersStrip";
 import { Button } from "@/components/ui/Button";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { getInvolved } from "@/content/getInvolved";
-import { supporters } from "@/content/supporters";
+import { featuredSupporters, supporters } from "@/content/supporters";
 
 export const metadata: Metadata = {
   title: "Get Involved",
@@ -66,7 +66,7 @@ export default function GetInvolvedPage() {
         </Container>
       </section>
 
-      <SupportersStrip supporters={supporters} />
+      <SupportersStrip featured={featuredSupporters} supporters={supporters} />
     </>
   );
 }

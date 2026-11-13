@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
-import { events } from "@/content/events";
 import { org } from "@/content/site";
-import { getEvent, lastOccurrence, occurrencesOf } from "@/lib/events";
+import { findEvent, lastOccurrence, occurrencesOf } from "@/lib/events";
+import { getEvents } from "@/lib/getEvents";
 
-export const dynamic = "force-static";
+export const revalidate = 60;
 
-export function generateStaticParams() {
-  return events.map((e) => ({ slug: e.slug }));
+export async function generateStaticParams() {
+  return (await getEvents()).map((e) => ({ slug: e.slug }));
 }
 
 const stamp = (iso: string) => iso.replace(/[-:]/g, "").replace(/\.\d{3}/, "");
@@ -37,7 +37,7 @@ const escape = (s: string) => s.replace(/\\/g, "\\\\").replace(/([,;])/g, "\\$1"
 /** An .ics file so people can add the event (or every weekly session) to their calendar. */
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const event = getEvent(slug);
+  const event = findEvent(await getEvents(), slug);
   if (!event) notFound();
 
   const first = occurrencesOf(event)[0];

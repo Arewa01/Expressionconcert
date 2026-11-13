@@ -11,7 +11,8 @@ import { SectionHeading } from "@/components/sections/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { concerts, eventsPage } from "@/content/events";
-import { allOccurrences, pastEvents, upcomingEvents } from "@/lib/events";
+import { allOccurrences, ongoingEvents, pastEvents, upcomingEvents } from "@/lib/events";
+import { getEvents } from "@/lib/getEvents";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -19,18 +20,22 @@ export const metadata: Metadata = {
 };
 
 // Re-check which events are upcoming every hour
-export const revalidate = 3600;
+export const revalidate = 60;
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  const events = await getEvents();
   const now = new Date();
-  const upcoming = upcomingEvents(now);
-  const past = pastEvents(now);
-  const startMonth = (upcoming[0]?.date ?? now.toISOString()).slice(0, 7);
+  const upcoming = upcomingEvents(events, now);
+  const ongoing = ongoingEvents(events, now);
+  const past = pastEvents(events, now);
+  // The hero leads with upcoming events (the concert), and falls back to ongoing programmes
+  const featured = upcoming.length ? upcoming : ongoing;
+  const startMonth = ([...upcoming, ...ongoing].sort((a, b) => a.startsAt.localeCompare(b.startsAt))[0]?.date ?? now.toISOString()).slice(0, 7);
 
   return (
     <>
-      {upcoming.length ? (
-        <EventHero eyebrow={eventsPage.eyebrow} items={upcoming} />
+      {featured.length ? (
+        <EventHero eyebrow={eventsPage.eyebrow} items={featured} />
       ) : (
         <PageHero
           eyebrow="Events"
@@ -56,11 +61,26 @@ export default function EventsPage() {
         </section>
       )}
 
+      {ongoing.length > 0 && (
+        <section className={`bg-white pb-24 ${upcoming.length ? "" : "pt-24"}`}>
+          <Container className="max-w-5xl">
+            <SectionHeading {...eventsPage.ongoing} align="center" />
+            <Stagger className="mt-12">
+              {ongoing.map((o) => (
+                <StaggerItem key={o.event.slug}>
+                  <EventRow occurrence={o} />
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </Container>
+        </section>
+      )}
+
       <section className="bg-[#faf8f5] py-24">
         <Container>
           <SectionHeading {...eventsPage.calendar} />
           <Reveal delay={0.15} className="mt-12">
-            <EventCalendar occurrences={allOccurrences()} startMonth={startMonth} />
+            <EventCalendar occurrences={allOccurrences(events)} startMonth={startMonth} />
           </Reveal>
         </Container>
       </section>
@@ -83,7 +103,7 @@ export default function EventsPage() {
       <section className="bg-ink py-24 text-white">
         <Container>
           <Reveal y={12}>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand">Past concerts</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-light">Past concerts</p>
           </Reveal>
           <h2 className="mt-5 text-4xl font-extrabold tracking-tight sm:text-5xl">
             {eventsPage.archive.title} <em className="font-serif font-bold text-brand italic">{eventsPage.archive.titleAccent}</em>

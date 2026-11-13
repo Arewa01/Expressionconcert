@@ -4,13 +4,13 @@ export function Eyebrow({
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "brand" | "white";
+  tone?: "brand" | "white" | "gold";
   className?: string;
 }) {
   return (
     <p
       className={`text-xs font-semibold uppercase tracking-[0.3em] ${
-        tone === "brand" ? "text-brand" : "text-white"
+        tone === "brand" ? "text-brand" : tone === "gold" ? "text-gold-light" : "text-white"
       } ${className}`}
     >
       {children}

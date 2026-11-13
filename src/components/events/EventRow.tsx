@@ -59,7 +59,16 @@ export function EventRow({ occurrence, past = false, notch = "#ffffff" }: { occu
       </div>
 
       <Link href={`/events/${event.slug}`} aria-hidden tabIndex={-1} className="hidden md:block">
-        <TicketImage src={event.image} alt="" sizes="300px" className="aspect-[16/10]" notch={notch} muted={past} />
+        <TicketImage
+          src={event.poster ?? event.image}
+          // Flyers fill the stub. The crop keeps the middle band of the flyer, where the title sits.
+          imageClassName={event.poster ? "object-[50%_44%]" : ""}
+          alt=""
+          sizes="300px"
+          className="aspect-[16/10]"
+          notch={notch}
+          muted={past}
+        />
       </Link>
     </article>
   );

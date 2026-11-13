@@ -27,7 +27,7 @@ export function Testimonial({ items }: { items: TestimonialItem[] }) {
         placeholderClassName="bg-neutral-100/70"
       />
       <div className="p-8 sm:p-10">
-        <span aria-hidden className="font-serif text-4xl font-bold leading-none text-brand">
+        <span aria-hidden className="font-serif text-4xl font-bold leading-none text-gold">
           &ldquo;
         </span>
         <AnimatePresence mode="wait" initial={false} custom={dir}>

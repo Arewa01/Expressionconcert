@@ -1,26 +1,28 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useAnimationControls } from "motion/react";
 import { useEffect } from "react";
+import key1 from "@/assets/logo/key-1.png";
+import key2 from "@/assets/logo/key-2.png";
+import key3 from "@/assets/logo/key-3.png";
+import key4 from "@/assets/logo/key-4.png";
+import wordmark from "@/assets/logo/wordmark.png";
 
-const bars = [22, 40, 30, 40, 22];
+const keys = [key1, key2, key3, key4];
 
-// Each bar bounces through its own levels, then settles at its resting height (1)
-const levels = [
-  [1, 0.4, 1.15, 0.6, 1],
-  [1, 0.55, 0.3, 1.1, 1],
-  [1, 1.2, 0.45, 0.8, 1],
-  [1, 0.35, 0.9, 0.5, 1],
-  [1, 0.8, 0.4, 1.2, 1],
-];
-
+/**
+ * The Expression Concert logo laid out horizontally: the four gold piano keys, then the wordmark.
+ * Both pieces are cut from the logo artwork (public/images/logo/expression-concert-logo.png).
+ * The keys "play" a quick run when the page loads and again on hover.
+ */
 export function Logo({ className = "" }: { className?: string }) {
   const controls = useAnimationControls();
   const play = () =>
     controls.start((i: number) => ({
-      scaleY: levels[i],
-      transition: { duration: 1.2, ease: "easeInOut", delay: i * 0.04 },
+      y: [0, 5, 0],
+      transition: { duration: 0.45, delay: i * 0.09, ease: "easeInOut" },
     }));
 
   useEffect(() => {
@@ -33,25 +35,16 @@ export function Logo({ className = "" }: { className?: string }) {
       href="/"
       aria-label="Expression Concert home"
       onMouseEnter={play}
-      className={`flex items-center gap-3 ${className}`}
+      className={`flex shrink-0 items-center gap-3 ${className}`}
     >
-      <span aria-hidden className="flex h-10 items-center gap-[5px]">
-        {bars.map((h, i) => (
-          <motion.span
-            key={i}
-            custom={i}
-            animate={controls}
-            className="w-[5px] rounded-full bg-brand"
-            style={{ height: h }}
-          />
+      <span aria-hidden className="flex items-start gap-[3px]">
+        {keys.map((src, i) => (
+          <motion.span key={i} custom={i} animate={controls} className="block">
+            <Image src={src} alt="" priority className="h-10 w-auto sm:h-11" />
+          </motion.span>
         ))}
       </span>
-      <span className="leading-none">
-        <span className="block text-[15px] font-bold tracking-[0.22em] text-ink">EXPRESSION</span>
-        <span className="mt-1 block text-[11px] font-medium tracking-[0.42em] text-neutral-500">
-          CONCERT
-        </span>
-      </span>
+      <Image src={wordmark} alt="" priority className="h-8 w-auto sm:h-9" />
     </Link>
   );
 }

@@ -94,7 +94,7 @@ export function EventCalendar({ occurrences, startMonth }: { occurrences: Occurr
                     ? "bg-neutral-100 font-semibold text-neutral-500 hover:bg-neutral-200"
                     : "bg-brand font-bold text-white shadow-[0_8px_18px_-8px_rgba(200,30,40,0.7)] hover:bg-brand-dark"
                   : "text-neutral-600"
-              } ${isToday ? "ring-2 ring-ink ring-offset-2" : ""}`;
+              } ${isToday ? "ring-2 ring-gold ring-offset-2" : ""}`;
               const day = Number(date.slice(8));
               return items.length ? (
                 <Link

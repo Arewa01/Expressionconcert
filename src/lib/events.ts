@@ -1,4 +1,6 @@
-import { events, type EventItem } from "@/content/events";
+import type { EventItem } from "@/content/events";
+
+// Pure helpers: every function takes the event list, which comes from getEvents() (Sanity or the local fallback).
 
 /** One dated session of an event. Weekly events produce one occurrence per week. */
 export type Occurrence = {
@@ -47,7 +49,7 @@ export function occurrencesOf(event: EventItem): Occurrence[] {
   return out;
 }
 
-export const allOccurrences = () =>
+export const allOccurrences = (events: EventItem[]) =>
   events.flatMap(occurrencesOf).sort((a, b) => a.startsAt.localeCompare(b.startsAt));
 
 /** The next session that hasn't finished yet, or null if the event is over. */
@@ -60,23 +62,34 @@ export function lastOccurrence(event: EventItem): Occurrence {
   return all[all.length - 1];
 }
 
-/** Each upcoming event once, at its next session, soonest first. */
-export function upcomingEvents(now = new Date()): Occurrence[] {
+/** Each event that isn't over yet, once, at its next session, soonest first. */
+export function activeEvents(events: EventItem[], now = new Date()): Occurrence[] {
   return events
     .map((e) => nextOccurrence(e, now))
     .filter((o): o is Occurrence => o !== null)
     .sort((a, b) => a.startsAt.localeCompare(b.startsAt));
 }
 
+/** True when an event's first session has already started */
+export const hasStarted = (e: EventItem, now = new Date()) => new Date(occurrencesOf(e)[0].startsAt) <= now;
+
+/** Events that haven't started yet (e.g. a concert, or a programme before its first session), soonest first. */
+export const upcomingEvents = (events: EventItem[], now = new Date()) =>
+  activeEvents(events, now).filter((o) => !hasStarted(o.event, now));
+
+/** Weekly programmes already under way, at their next session, soonest first. */
+export const ongoingEvents = (events: EventItem[], now = new Date()) =>
+  activeEvents(events, now).filter((o) => hasStarted(o.event, now));
+
 /** Each finished event once, at its last session, most recent first. */
-export function pastEvents(now = new Date()): Occurrence[] {
+export function pastEvents(events: EventItem[], now = new Date()): Occurrence[] {
   return events
     .filter((e) => !nextOccurrence(e, now))
     .map(lastOccurrence)
     .sort((a, b) => b.startsAt.localeCompare(a.startsAt));
 }
 
-export const getEvent = (slug: string) => events.find((e) => e.slug === slug);
+export const findEvent = (events: EventItem[], slug: string) => events.find((e) => e.slug === slug);
 
 // ---------- Formatting (always in UK time) ----------
 

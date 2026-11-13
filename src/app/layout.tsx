@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Caveat, Inter, Playfair_Display } from "next/font/google";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import "./globals.css";
 
@@ -28,11 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB" className={`${inter.variable} ${playfair.variable} ${caveat.variable}`}>
       <body>
-        <MotionProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </MotionProvider>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

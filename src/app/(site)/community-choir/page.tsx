@@ -24,7 +24,7 @@ export default function ChoirPage() {
           <Stagger className="grid gap-10 md:grid-cols-3">
             {highlights.map((h, i) => (
               <StaggerItem key={h.title} className="border-t border-white/15 pt-6">
-                <p className="font-serif text-5xl font-bold italic text-brand">0{i + 1}</p>
+                <p className="font-serif text-5xl font-bold italic text-gold-light">0{i + 1}</p>
                 <h3 className="mt-4 text-xl font-bold">{h.title}</h3>
                 <p className="mt-2 leading-relaxed text-white/70">{h.description}</p>
               </StaggerItem>

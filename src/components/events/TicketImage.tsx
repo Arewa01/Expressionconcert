@@ -11,6 +11,8 @@ export function TicketImage({
   className = "",
   notch = "#ffffff",
   muted = false,
+  contain = false,
+  imageClassName = "",
 }: {
   src?: string;
   alt: string;
@@ -18,6 +20,9 @@ export function TicketImage({
   className?: string;
   notch?: string;
   muted?: boolean;
+  contain?: boolean;
+  /** Extra classes for the image, e.g. an object-position to keep a flyer's title in frame */
+  imageClassName?: string;
 }) {
   return (
     <div className={`group/ticket relative ${className}`}>
@@ -25,8 +30,9 @@ export function TicketImage({
         src={src}
         alt={alt}
         sizes={sizes}
-        className="absolute inset-0 rounded-xl"
-        imageClassName={`transition-transform duration-700 group-hover/ticket:scale-[1.04] ${muted ? "grayscale-[60%]" : ""}`}
+        contain={contain}
+        className="absolute inset-0 rounded-xl bg-ink"
+        imageClassName={`transition-transform duration-700 group-hover/ticket:scale-[1.04] ${muted ? "grayscale-[60%]" : ""} ${imageClassName}`}
       />
       {/* perforations */}
       <span
